@@ -34,6 +34,7 @@ template "#{node[:grafana][:path]}/current/config.js" do
     },
     :metrics_database => node[:grafana][:metrics_database],
     :grafana_database => node[:grafana][:grafana_database],
+    :ssl => node[:ssl]
   })
   action :create
 end
@@ -58,6 +59,7 @@ template "/etc/nginx/sites-available/grafana" do
     :ssl => node[:ssl]
   })
   action :create
+  notifies :reload, "service[nginx]", :delayed
 end
 
 link "/etc/nginx/sites-enabled/grafana" do

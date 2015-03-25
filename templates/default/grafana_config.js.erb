@@ -1,15 +1,16 @@
+<% url_prefix = @ssl[:enabled] ? "https://" : "http://" %>
 define(['settings'], function(Settings) {
   return new Settings({
     datasources: {
       influxdb: {
         type: 'influxdb',
-        url: "http://<%= @grafana[:host] %>:<%= @grafana[:port] %>/db/<%= @metrics_database[:database] %>",
+        url: "<%= url_prefix %><%= @grafana[:host] %>:<%= @grafana[:port] %>/db/<%= @metrics_database[:database] %>",
         username: '<%= @metrics_database[:user] %>',
         password: '<%= @metrics_database[:password] %>',
       },
       grafana: {
         type: 'influxdb',
-        url: "http://<%= @grafana[:host] %>:<%= @grafana[:port] %>/db/<%= @grafana_database[:database] %>",
+        url: "<%= url_prefix %><%= @grafana[:host] %>:<%= @grafana[:port] %>/db/<%= @grafana_database[:database] %>",
         username: '<%= @grafana_database[:user] %>',
         password: '<%= @grafana_database[:password] %>',
         grafanaDB: true,
